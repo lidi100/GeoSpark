@@ -25,38 +25,38 @@
  */
 package org.datasyslab.geosparksql.UDF
 
-import org.apache.spark.sql.catalyst.FunctionIdentifier
+import org.apache.spark.sql.catalyst.analysis.FunctionRegistry
 import org.apache.spark.sql.geosparksql.expressions._
 import org.apache.spark.sql.{SQLContext, SparkSession}
 
 object UdfRegistrator {
   def resigterConstructors(sparkSession: SparkSession): Unit = {
-    sparkSession.sessionState.functionRegistry.createOrReplaceTempFunction("ST_PointFromText", ST_PointFromText)
-    sparkSession.sessionState.functionRegistry.createOrReplaceTempFunction("ST_PolygonFromText", ST_PolygonFromText)
-    sparkSession.sessionState.functionRegistry.createOrReplaceTempFunction("ST_LineStringFromText", ST_LineStringFromText)
-    sparkSession.sessionState.functionRegistry.createOrReplaceTempFunction("ST_GeomFromWKT", ST_GeomFromWKT)
-    sparkSession.sessionState.functionRegistry.createOrReplaceTempFunction("ST_GeomFromWKB", ST_GeomFromWKB)
-    sparkSession.sessionState.functionRegistry.createOrReplaceTempFunction("ST_GeomFromGeoJSON", ST_GeomFromGeoJSON)
-    sparkSession.sessionState.functionRegistry.createOrReplaceTempFunction("ST_Circle", ST_Circle)
-    sparkSession.sessionState.functionRegistry.createOrReplaceTempFunction("ST_Point", ST_Point)
-    sparkSession.sessionState.functionRegistry.createOrReplaceTempFunction("ST_PolygonFromEnvelope", ST_PolygonFromEnvelope)
+    FunctionRegistry.builtin.registerFunction("ST_PointFromText", ST_PointFromText)
+    FunctionRegistry.builtin.registerFunction("ST_PolygonFromText", ST_PolygonFromText)
+    FunctionRegistry.builtin.registerFunction("ST_LineStringFromText", ST_LineStringFromText)
+    FunctionRegistry.builtin.registerFunction("ST_GeomFromWKT", ST_GeomFromWKT)
+    FunctionRegistry.builtin.registerFunction("ST_GeomFromWKB", ST_GeomFromWKB)
+    FunctionRegistry.builtin.registerFunction("ST_GeomFromGeoJSON", ST_GeomFromGeoJSON)
+    FunctionRegistry.builtin.registerFunction("ST_Circle", ST_Circle)
+    FunctionRegistry.builtin.registerFunction("ST_Point", ST_Point)
+    FunctionRegistry.builtin.registerFunction("ST_PolygonFromEnvelope", ST_PolygonFromEnvelope)
   }
 
   def registerPredicates(sparkSession: SparkSession): Unit = {
-    sparkSession.sessionState.functionRegistry.createOrReplaceTempFunction("ST_Contains", ST_Contains)
-    sparkSession.sessionState.functionRegistry.createOrReplaceTempFunction("ST_Intersects", ST_Intersects)
-    sparkSession.sessionState.functionRegistry.createOrReplaceTempFunction("ST_Within", ST_Within)
+    FunctionRegistry.builtin.registerFunction("ST_Contains", ST_Contains)
+    FunctionRegistry.builtin.registerFunction("ST_Intersects", ST_Intersects)
+    FunctionRegistry.builtin.registerFunction("ST_Within", ST_Within)
   }
 
   def registerFunctions(sparkSession: SparkSession): Unit = {
-    sparkSession.sessionState.functionRegistry.createOrReplaceTempFunction("ST_Distance", ST_Distance)
-    sparkSession.sessionState.functionRegistry.createOrReplaceTempFunction("ST_ConvexHull", ST_ConvexHull)
-    sparkSession.sessionState.functionRegistry.createOrReplaceTempFunction("ST_Envelope", ST_Envelope)
-    sparkSession.sessionState.functionRegistry.createOrReplaceTempFunction("ST_Length", ST_Length)
-    sparkSession.sessionState.functionRegistry.createOrReplaceTempFunction("ST_Area", ST_Area)
-    sparkSession.sessionState.functionRegistry.createOrReplaceTempFunction("ST_Centroid", ST_Centroid)
-    sparkSession.sessionState.functionRegistry.createOrReplaceTempFunction("ST_Transform", ST_Transform)
-    sparkSession.sessionState.functionRegistry.createOrReplaceTempFunction("ST_Intersection", ST_Intersection)
+    FunctionRegistry.builtin.registerFunction("ST_Distance", ST_Distance)
+    FunctionRegistry.builtin.registerFunction("ST_ConvexHull", ST_ConvexHull)
+    FunctionRegistry.builtin.registerFunction("ST_Envelope", ST_Envelope)
+    FunctionRegistry.builtin.registerFunction("ST_Length", ST_Length)
+    FunctionRegistry.builtin.registerFunction("ST_Area", ST_Area)
+    FunctionRegistry.builtin.registerFunction("ST_Centroid", ST_Centroid)
+    FunctionRegistry.builtin.registerFunction("ST_Transform", ST_Transform)
+    FunctionRegistry.builtin.registerFunction("ST_Intersection", ST_Intersection)
   }
 
   def registerAggregateFunctions(sparkSession: SparkSession): Unit = {
@@ -65,37 +65,37 @@ object UdfRegistrator {
   }
 
   def dropConstructors(sparkSession: SparkSession): Unit = {
-    sparkSession.sessionState.functionRegistry.dropFunction(FunctionIdentifier("ST_PointFromText"))
-    sparkSession.sessionState.functionRegistry.dropFunction(FunctionIdentifier("ST_PolygonFromText"))
-    sparkSession.sessionState.functionRegistry.dropFunction(FunctionIdentifier("ST_LineStringFromText"))
-    sparkSession.sessionState.functionRegistry.dropFunction(FunctionIdentifier("ST_GeomFromWKT"))
-    sparkSession.sessionState.functionRegistry.dropFunction(FunctionIdentifier("ST_GeomFromWKB"))
-    sparkSession.sessionState.functionRegistry.dropFunction(FunctionIdentifier("ST_GeomFromGeoJSON"))
-    sparkSession.sessionState.functionRegistry.dropFunction(FunctionIdentifier("ST_Circle"))
-    sparkSession.sessionState.functionRegistry.dropFunction(FunctionIdentifier("ST_Point"))
-    sparkSession.sessionState.functionRegistry.dropFunction(FunctionIdentifier("ST_PolygonFromEnvelope"))
+    FunctionRegistry.builtin.dropFunction("ST_PointFromText")
+    FunctionRegistry.builtin.dropFunction("ST_PolygonFromText")
+    FunctionRegistry.builtin.dropFunction("ST_LineStringFromText")
+    FunctionRegistry.builtin.dropFunction("ST_GeomFromWKT")
+    FunctionRegistry.builtin.dropFunction("ST_GeomFromWKB")
+    FunctionRegistry.builtin.dropFunction("ST_GeomFromGeoJSON")
+    FunctionRegistry.builtin.dropFunction("ST_Circle")
+    FunctionRegistry.builtin.dropFunction("ST_Point")
+    FunctionRegistry.builtin.dropFunction("ST_PolygonFromEnvelope")
   }
 
   def dropPredicates(sparkSession: SparkSession): Unit = {
-    sparkSession.sessionState.functionRegistry.dropFunction(FunctionIdentifier("ST_Contains"))
-    sparkSession.sessionState.functionRegistry.dropFunction(FunctionIdentifier("ST_Intersects"))
-    sparkSession.sessionState.functionRegistry.dropFunction(FunctionIdentifier("ST_Within"))
+    FunctionRegistry.builtin.dropFunction("ST_Contains")
+    FunctionRegistry.builtin.dropFunction("ST_Intersects")
+    FunctionRegistry.builtin.dropFunction("ST_Within")
   }
 
   def dropFunctions(sparkSession: SparkSession): Unit = {
-    sparkSession.sessionState.functionRegistry.dropFunction(FunctionIdentifier("ST_Distance"))
-    sparkSession.sessionState.functionRegistry.dropFunction(FunctionIdentifier("ST_ConvexHull"))
-    sparkSession.sessionState.functionRegistry.dropFunction(FunctionIdentifier("ST_Envelope"))
-    sparkSession.sessionState.functionRegistry.dropFunction(FunctionIdentifier("ST_Length"))
-    sparkSession.sessionState.functionRegistry.dropFunction(FunctionIdentifier("ST_Area"))
-    sparkSession.sessionState.functionRegistry.dropFunction(FunctionIdentifier("ST_Centroid"))
-    sparkSession.sessionState.functionRegistry.dropFunction(FunctionIdentifier("ST_Transform"))
-    sparkSession.sessionState.functionRegistry.dropFunction(FunctionIdentifier("ST_Intersection"))
+    FunctionRegistry.builtin.dropFunction("ST_Distance")
+    FunctionRegistry.builtin.dropFunction("ST_ConvexHull")
+    FunctionRegistry.builtin.dropFunction("ST_Envelope")
+    FunctionRegistry.builtin.dropFunction("ST_Length")
+    FunctionRegistry.builtin.dropFunction("ST_Area")
+    FunctionRegistry.builtin.dropFunction("ST_Centroid")
+    FunctionRegistry.builtin.dropFunction("ST_Transform")
+    FunctionRegistry.builtin.dropFunction("ST_Intersection")
   }
 
   def dropAggregateFunctions(sparkSession: SparkSession): Unit = {
-    sparkSession.sessionState.functionRegistry.dropFunction(FunctionIdentifier("ST_Envelope_Aggr"))
-    sparkSession.sessionState.functionRegistry.dropFunction(FunctionIdentifier("ST_Union_Aggr"))
+    FunctionRegistry.builtin.dropFunction("ST_Envelope_Aggr")
+    FunctionRegistry.builtin.dropFunction("ST_Union_Aggr")
   }
 
   def registerAll(sqlContext: SQLContext): Unit = {

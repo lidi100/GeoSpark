@@ -7,7 +7,7 @@
         <version>1.0.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-	<artifactId>geospark-sql_2.3</artifactId>
+	<artifactId>geospark-sql_2.1</artifactId>
 	<version>1.1.1-SNAPSHOT</version>
 
 	<name>${project.groupId}:${project.artifactId}</name>
